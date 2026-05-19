@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claeb — Accelerator for the Lost & Passionate</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --glass-blur: 20px;
+      --glass-opacity: 0.15;
+      --accent-cyan: #06b6d4;
+      --accent-blue: #0284c7;
+      --accent-purple: #8b5cf6;
+      --accent-amber: #f59e0b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #e2e8f0;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, var(--glass-opacity));
+      backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+    }
+
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 { font-size: 3.5rem; line-height: 1.1; }
+    h2 { font-size: 2.5rem; line-height: 1.2; }
+    h3 { font-size: 1.5rem; line-height: 1.3; }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #06b6d4, #8b5cf6, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .glow {
+      box-shadow: 0 0 40px rgba(6, 182, 212, 0.3), 
+                  0 0 80px rgba(139, 92, 246, 0.2);
+    }
+
+    .glow-hover:hover {
+      box-shadow: 0 0 60px rgba(6, 182, 212, 0.5), 
+                  0 0 120px rgba(139, 92, 246, 0.3);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .card-hover:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 0 50px rgba(6, 182, 212, 0.4);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 3rem;
+    }
+
+    .stat-box {
+      padding: 1rem;
+      text-align: center;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 12px;
+      font-size: 0.875rem;
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 1.75rem;
+      color: var(--accent-cyan);
+      margin-bottom: 0.25rem;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .cta-button {
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(6, 182, 212, 0.6);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .feature-card {
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.2), transparent);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .feature-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .icon {
+      width: 3rem;
+      height: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+
+    .testimonial {
+      padding: 1.5rem;
+      border-left: 3px solid var(--accent-cyan);
+      position: relative;
+    }
+
+    .testimonial-author {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      margin-top: 1rem;
+    }
+
+    .pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(6, 182, 212, 0.05);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(6, 182, 212, 0.4);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(6, 182, 212, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 backdrop-blur-lg border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="14" stroke="url(#grad)" stroke-width="2"/>
+          <path d="M16 10V22M10 16H22" stroke="url(#grad)" stroke-width="2" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="32" y2="32">
+              <stop offset="0%" stop-color="#06b6d4"/>
+              <stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="font-family: 'Syne'" style="font-family: 'Syne'" class="text-xl font-bold gradient-text">Claeb</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8 text-sm">
+        <a href="#features" class="hover:text-cyan-400 transition">Features</a>
+        <a href="#why" class="hover:text-cyan-400 transition">Why Claeb</a>
+        <a href="#community" class="hover:text-cyan-400 transition">Community</a>
+        <button class="cta-button text-sm">Join Now</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
+    <!-- Background elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-20 left-10 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl opacity-20"></div>
+      <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl opacity-20"></div>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto text-center">
+      <!-- Claeb Mascot -->
+      <div class="mb-12 inline-block">
+        <svg class="w-32 h-32 mx-auto float" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Head -->
+          <circle cx="60" cy="50" r="28" fill="url(#headGrad)" opacity="0.9"/>
+          <circle cx="60" cy="50" r="28" fill="none" stroke="rgba(6, 182, 212, 0.3)" stroke-width="2"/>
+          
+          <!-- Eyes -->
+          <circle cx="50" cy="40" r="4" fill="#06b6d4"/>
+          <circle cx="70" cy="40" r="4" fill="#06b6d4"/>
+          <circle cx="51" cy="39" r="1.5" fill="#0f172a"/>
+          <circle cx="71" cy="39" r="1.5" fill="#0f172a"/>
+          
+          <!-- Smile -->
+          <path d="M 50 55 Q 60 60 70 55" stroke="rgba(6, 182, 212, 0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          
+          <!-- Antenna -->
+          <line x1="60" y1="22" x2="60" y2="8" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="60" cy="6" r="3" fill="var(--accent-cyan)"/>
+          
+          <!-- Body -->
+          <path d="M 45 75 Q 45 90 60 95 Q 75 90 75 75 Z" fill="url(#bodyGrad)" opacity="0.85"/>
+          <path d="M 45 75 Q 45 90 60 95 Q 75 90 75 75 Z" fill="none" stroke="rgba(6, 182, 212, 0.2)" stroke-width="2"/>
+          
+          <!-- Arms -->
+          <line x1="45" y1="80" x2="30" y2="75" stroke="var(--accent-cyan)" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="75" y1="80" x2="90" y2="75" stroke="var(--accent-cyan)" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="28" cy="73" r="2.5" fill="var(--accent-cyan)"/>
+          <circle cx="92" cy="73" r="2.5" fill="var(--accent-cyan)"/>
+          
+          <!-- Aura -->
+          <circle cx="60" cy="50" r="42" fill="none" stroke="rgba(139, 92, 246, 0.1)" stroke-width="1" opacity="0.6" class="pulse"/>
+          
+          <defs>
+            <linearGradient id="headGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.8" />
+              <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.6" />
+            </linearGradient>
+            <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#0284c7;stop-opacity:0.7" />
+              <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.5" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <h1 class="text-5xl md:text-7xl font-bold mb-6">
+        You have an idea.<br>
+        <span class="gradient-text">No resources.</span><br>
+        No problem.
+      </h1>
+
+      <p class="text-lg md:text-xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+        Claeb is an accelerator for the <span class="text-cyan-400 font-semibold">lost but passionate</span>. 
+        We don't ask for equity or traction. We ask for hunger. Build what matters with a community 
+        that believes in you.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+        <button class="cta-button">Start Building →</button>
+        <button class="px-8 py-4 border border-cyan-400/50 rounded-lg hover:bg-cyan-400/10 transition">
+          See How It Works
+        </button>
+      </div>
+
+      <div class="hero-grid max-w-2xl mx-auto">
+        <div class="stat-box scroll-reveal">
+          <strong>500+</strong>
+          <span>Founders</span>
+        </div>
+        <div class="stat-box scroll-reveal" style="transition-delay: 0.1s">
+          <strong>0</strong>
+          <span>Equity Lost</span>
+        </div>
+        <div class="stat-box scroll-reveal" style="transition-delay: 0.2s">
+          <strong>∞</strong>
+          <span>Mentorship</span>
+        </div>
+        <div class="stat-box scroll-reveal" style="transition-delay: 0.3s">
+          <strong>Free</strong>
+          <span>Forever</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Claeb -->
+  <section id="why" class="relative py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 scroll-reveal">
+        Why Claeb is different
+      </h2>
+
+      <div class="feature-grid">
+        <div class="glass glass-strong feature-card card-hover scroll-reveal">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" stroke="currentColor" fill="rgba(6, 182, 212, 0.3)"/>
+          </svg>
+          <h3>No Gatekeepers</h3>
+          <p class="text-slate-400 mt-3">No pitch deck required. No network needed. Just passion and a problem you're solving.</p>
+        </div>
+
+        <div class="glass glass-strong feature-card card-hover scroll-reveal" style="transition-delay: 0.1s">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M16 11a4 4 0 1 1-8 0 4 4 0 0 1 8 0zm6-2h-6v6h6V9z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="rgba(139, 92, 246, 0.3)"/>
+          </svg>
+          <h3>Real Mentorship</h3>
+          <p class="text-slate-400 mt-3">Access to experienced founders, engineers, and operators who've been there.</p>
+        </div>
+
+        <div class="glass glass-strong feature-card card-hover scroll-reveal" style="transition-delay: 0.2s">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" stroke="currentColor" fill="rgba(245, 158, 11, 0.3)" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Keep Everything</h3>
+          <p class="text-slate-400 mt-3">Your equity is yours. We succeed when you succeed, no shortcuts.</p>
+        </div>
+
+        <div class="glass glass-strong feature-card card-hover scroll-reveal" style="transition-delay: 0.3s">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" fill="rgba(6, 182, 212, 0.3)"/>
+            <path d="M12 6v6l4 2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>100% Async</h3>
+          <p class="text-slate-400 mt-3">Work on your schedule. Resources, code, templates—all available 24/7.</p>
+        </div>
+
+        <div class="glass glass-strong feature-card card-hover scroll-reveal" style="transition-delay: 0.4s">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" stroke="currentColor" fill="rgba(139, 92, 246, 0.3)" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="13 2 13 9 20 9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <h3>Resource Library</h3>
+          <p class="text-slate-400 mt-3">Design templates, code repos, marketing playbooks, legal docs—it's all there.</p>
+        </div>
+
+        <div class="glass glass-strong feature-card card-hover scroll-reveal" style="transition-delay: 0.5s">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M18 15l-6-6m0 0L6 3m12 12l6 6M6 3l6 6m0 0L6 15" stroke="currentColor" fill="rgba(245, 158, 11, 0.3)" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Ship Fast</h3>
+          <p class="text-slate-400 mt-3">Tools to validate ideas, run launches, and iterate with real users instantly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Section -->
+  <section id="community" class="relative py-24 px-6 bg-gradient-to-b from-transparent via-blue-900/10 to-transparent">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 scroll-reveal">
+        Built by founders like you
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div class="glass glass-strong p-6 card-hover scroll-reveal">
+          <p class="text-cyan-300 text-sm font-semibold mb-2">Ai Insanity</p>
+          <p class="mb-4">"I had an idea for an AI tool but zero CS degree. Claeb gave me the code templates and a CTO mentor. Shipped in 8 weeks."</p>
+          <p class="testimonial-author">— Arjun, India</p>
+        </div>
+
+        <div class="glass glass-strong p-6 card-hover scroll-reveal" style="transition-delay: 0.1s">
+          <p class="text-cyan-300 text-sm font-semibold mb-2">Circular Commerce</p>
+          <p class="mb-4">"No venture backing, no connections in Singapore. Claeb's playbook for B2B sales made us profitable in 6 months."</p>
+          <p class="testimonial-author">— Sophie, SG</p>
+        </div>
+
+        <div class="glass glass-strong p-6 card-hover scroll-reveal" style="transition-delay: 0.2s">
+          <p class="text-cyan-300 text-sm font-semibold mb-2">FinTech for Climate</p>
+          <p class="mb-4">"Mentors helped us think through sustainable financing. Now we're helping SMEs offset carbon at scale."</p>
+          <p class="testimonial-author">— Marcus, Kenya</p>
+        </div>
+
+        <div class="glass glass-strong p-6 card-hover scroll-reveal" style="transition-delay: 0.3s">
+          <p class="text-cyan-300 text-sm font-semibold mb-2">Creator Tools</p>
+          <p class="mb-4">"Built the design system from the free template library. Saved months of time. The community feedback was invaluable."</p>
+          <p class="testimonial-author">— Zoe, London</p>
+        </div>
+      </div>
+
+      <div class="glass glass-strong p-8 text-center card-hover scroll-reveal">
+        <h3 class="text-2xl font-bold mb-4">Ready to join?</h3>
+        <p class="text-slate-300 mb-6">No application required. Fill in your idea, join the Slack, and start building with Claeb and 500+ other founders.</p>
+        <button class="cta-button">Get Started Now →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative py-12 px-6 border-t border-white/10">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <h4 class="font-bold text-cyan-400 mb-3">Product</h4>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="#" class="hover:text-cyan-400 transition">Mentorship</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Resources</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Community</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-cyan-400 mb-3">Company</h4>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="#" class="hover:text-cyan-400 transition">About</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Blog</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Status</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-cyan-400 mb-3">Connect</h4>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="#" class="hover:text-cyan-400 transition">Twitter</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Discord</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Email</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-cyan-400 mb-3">Legal</h4>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="#" class="hover:text-cyan-400 transition">Privacy</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Terms</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Sitemap</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between">
+        <p class="text-sm text-slate-400">© 2026 Claeb. For the lost & passionate.</p>
+        <p class="text-sm text-slate-500">Built with 💛 for founders without resources.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal animation
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 50);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Parallax effect on scroll
+    const sections = document.querySelectorAll('section');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      sections.forEach((section, index) => {
+        if (index === 0) {
+          const bgElements = section.querySelectorAll('[class*="blur"]');
+          bgElements.forEach(el => {
+            el.style.transform = `translateY(${scrollY * 0.5}px)`;
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
